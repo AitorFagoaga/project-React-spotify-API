@@ -11,7 +11,7 @@ function App() {
 
     const [token, setToken] = useState("")
     const [searchKey, setSearchKey] = useState("")
-    const [artists, setArtists] = useState([])
+    const [Shows, setShows] = useState([])
 
     // const getToken = () => {
     //     let urlParams = new URLSearchParams(window.location.hash.replace("#","?"));
@@ -41,7 +41,7 @@ function App() {
         window.localStorage.removeItem("token")
     }
 
-    const searchArtists = async (e) => {
+    const searchShow = async (e) => {
         e.preventDefault()
         const {data} = await axios.get("https://api.spotify.com/v1/search", {
             headers: {
@@ -49,23 +49,23 @@ function App() {
             },
             params: {
                 q: searchKey,
-                type: "artist"
+                type: "show"
             }
         })
 
-        setArtists(data.artists.items)
+        setShows(data.shows.items)
         console.log(data)
     }
 
-    const renderArtists = () => {
-        return artists.map(artist => (
-            <div className="artist" key={artist.id}>
-                {artist.images.length ? <img className="imgArtist" width={"100%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
-                {artist.name}
+    const renderShows = () => {
+        return Shows.map(show => (
+            <div className="artist" key={show.id}>
+                {show.images.length ? <img className="imgArtist" width={"100%"} src={show.images[0].url} alt=""/> : <div>No Image</div>}
+                {show.name}
             </div>
         ))
     }
-
+    
     return (
         <div className="App">
             <header className="App-header">
@@ -76,7 +76,7 @@ function App() {
                     : <button onClick={logout}>Logout</button>}
 
                 {token ?
-                    <form onSubmit={searchArtists}>
+                    <form onSubmit={searchShow}>
                         <input type="text" onChange={e => setSearchKey(e.target.value)}/>
                         <button type={"submit"}>Search</button>
                     </form>
@@ -84,7 +84,7 @@ function App() {
                     : <FontAwesomeIcon icon="fa-solid fa-arrow-up" />
                 }
 
-                {renderArtists()}
+                {renderShows()}
 
             </header>
         </div>
