@@ -7,14 +7,21 @@
 }
 .artist {
   height: 250px;
-  background-color: black;
+  width: 800px;
+  background-color: rgb(206 199 199);
   margin-bottom: 2vh;
   margin-top: 1vh;
   display: flex;
+  border-radius: 20px;
 }
 .imgArtist {
   height: 200px;
   width: 200px;
+  border-radius: 20px 0px 0px 0px;
+}
+.name-show {
+  color: black;
+  margin-left: 1vw;
 }
 
 @media (prefers-reduced-motion: no-preference) {

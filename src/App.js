@@ -52,19 +52,30 @@ function App() {
                 type: "show"
             }
         })
-
-        setShows(data.shows.items)
         console.log(data)
+        setShows(data.shows.items)
+        // console.log(data)
+    }
+    const renderEpisodes = async (e) => {
+        e.preventDefault()
+        const {data} = await axios.get(`https://api.spotify.com/v1/shows/${data.shows.items.id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        setShows(data.shows.items)
     }
 
     const renderShows = () => {
         return Shows.map(show => (
             <div className="artist" key={show.id}>
                 {show.images.length ? <img className="imgArtist" width={"100%"} src={show.images[0].url} alt=""/> : <div>No Image</div>}
-                {show.name}
+                <a href={renderEpisodes} className="name-show"> {show.name}</a>
+                <p className="total-episodes">{show.total_episodes}</p>
             </div>
         ))
     }
+    
     
     return (
         <div className="App">
